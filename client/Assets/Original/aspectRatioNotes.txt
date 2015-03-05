@@ -1,0 +1,26 @@
+All game programming uses a standard coordinate system. The primary gameplay
+happens with a 600x1020 "gameplay" box. A larger viewport box defines the maximum
+screen extent on any platform, it is 720x1080. The gameplay box is centered inside
+the viewport box.
+
+Here are some estimated resolutions on varoius devices:
+
+## iPhone 5
+- Device resolution: 640x1096
+- Game resolution: 640x1088
+- Margins: 8 pixel top margin.
+
+## iPhone 6
+- Device resolution: 750x1294
+- Game resolution: 750x1275
+- Margins: 19 pixel top margin.
+
+## iPhone 6+
+- Device resolution: 1080x1880
+- Game resolution: 1080x1836
+- Margins: 44 pixel top margin.
+
+## Galaxy S5
+- Device resolution: 1080x1845
+- Game resolution: 1080x1836
+- Margins: 9 pixel top margin
