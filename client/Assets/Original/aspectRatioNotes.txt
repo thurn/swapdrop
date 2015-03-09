@@ -3,6 +3,10 @@ happens with a 600x1020 "gameplay" box. A larger viewport box defines the maximu
 screen extent on any platform, it is 720x1080. The gameplay box is centered inside
 the viewport box.
 
+Following Unity convention, we define screen center as the origin. Thus, the bottom
+left point of the gameplay box is at coordinates (-300, -510) and the top right point
+is at (300, 510).
+
 Here are some estimated resolutions on varoius devices:
 
 ## iPhone 5
