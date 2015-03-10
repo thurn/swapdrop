@@ -9,6 +9,10 @@ is at (300, 510).
 
 Here are some estimated resolutions on varoius devices:
 
+## Development Mode
+- Game resolution: 300x510
+- Half-sized resolution to fit on laptop screen.
+
 ## iPhone 5
 - Device resolution: 640x1096
 - Game resolution: 640x1088
