@@ -1,17 +1,13 @@
 All game programming uses a standard coordinate system. The primary gameplay
-happens with a 600x1020 "gameplay" box. A larger viewport box defines the maximum
-screen extent on any platform, it is 720x1080. The gameplay box is centered inside
+happens with a 300x510 "gameplay" box. A larger viewport box defines the maximum
+screen extent on any platform, it is 360x540. The gameplay box is centered inside
 the viewport box.
 
-Following Unity convention, we define screen center as the origin. Thus, the bottom
-left point of the gameplay box is at coordinates (-300, -510) and the top right point
-is at (300, 510).
+Following Unity convention, we define screen center as the origin in world coordinates.
+Thus, the bottom left point of the gameplay box is at coordinates (-150, -255) and the top
+right point is at (150, 255).
 
-Here are some estimated resolutions on varoius devices:
-
-## Development Mode
-- Game resolution: 300x510
-- Half-sized resolution to fit on laptop screen.
+Here are some estimated scaled resolutions on various devices:
 
 ## iPhone 5
 - Device resolution: 640x1096
