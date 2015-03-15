@@ -1,11 +1,14 @@
-All game programming uses a standard coordinate system. The primary gameplay
-happens with a 300x510 "gameplay" box. A larger viewport box defines the maximum
-screen extent on any platform, it is 360x540. The gameplay box is centered inside
-the viewport box.
+All game programming uses a standard 10:17 coordinate system. The primary
+gameplay happens within a 300x510 "gameplay" box. A larger 360x540 viewport box
+defines the maximum screen extent on any platform, giving a side margin of 30
+pixels and a top margin of 15 pixels. The gameplay box is centered inside the
+viewport box.
 
-Following Unity convention, we define screen center as the origin in world coordinates.
-Thus, the bottom left point of the gameplay box is at coordinates (-150, -255) and the top
-right point is at (150, 255).
+We define the bottom left of the gameplay box to be the origin in world
+coordinates and all objects to have a bottom left pivot point. This maps Unity
+screen coordinates directly to world coordinates. Thus, the viewport box is
+positioned at world coordinates (-30, -15) and the main camera is positioned at
+world coordinates (150, 255).
 
 Here are some estimated scaled resolutions on various devices:
 
