@@ -25,7 +25,9 @@ namespace SwapDrop {
     }
 
     void Update() {
-      Debug.Log(Input.GetTouch(0).phase);
+      if (Input.touchCount > 0) {
+        Debug.Log(Input.GetTouch(0).phase);
+      }
     }
  
     private void AddTapRecognizerForCell(int column, int row) {

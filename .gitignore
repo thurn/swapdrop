@@ -1,7 +1,7 @@
 out/
-
-# Parse config
 server/config/global.json
+server/node_modules
+server/cloud/app.js
 
 # Unity generated #
 client/Temp/
