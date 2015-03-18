@@ -2,12 +2,29 @@
 using System.Collections;
 
 namespace SwapDrop {
+  public sealed class GridCellTappedEvent {
+    private readonly int _column;
+    private readonly int _row;
+ 
+    public int Column { get { return _column; } }
+    public int Row { get { return _row; } }
+ 
+    public GridCellTappedEvent(int column, int row) {
+      _column = column;
+      _row = row;
+    }
+
+    public override string ToString() {
+      return string.Format("GridCellTappedEvent [row={0}, column={1}]", _row, _column);
+    }
+  }
+
   public class Grid : MonoBehaviour {
  
     private const int GridMargin = 4;
     private const int GridSize = 70;
     private const int NumberOfSquares = 4;
- 
+
     // Use this for initialization
     void Start() {
       var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
@@ -16,27 +33,18 @@ namespace SwapDrop {
       print("Grid world position: " + worldPosition);
       var bounds = renderer.bounds;
       print("Grid bounds: " + bounds);
-
-      for (int i = 0; i < NumberOfSquares; ++i) {
-        for (int j = 0; j < NumberOfSquares; ++j) {
-          AddTapRecognizerForCell(i, j);
-        }
-      }
     }
 
     void Update() {
-      if (Input.touchCount > 0) {
-        Debug.Log(Input.GetTouch(0).phase);
+      if (Input.GetMouseButtonUp(0) && renderer.bounds.Contains(Input.mousePosition)) {
+        print("Click " + GetTappedCell(Input.mousePosition));
       }
     }
- 
-    private void AddTapRecognizerForCell(int column, int row) {
-      // A grid cell at column x and row y has x previous squares before it and
-      // x + 1 margins.
-      var rect = new Rect((column * GridSize) + ((column + 1) * GridMargin),
-                            105 + (row * GridSize) + ((row + 1) * GridMargin),
-                            GridSize,
-                            GridSize);
+
+    private GridCellTappedEvent GetTappedCell(Vector3 tappedPosition) {
+      Vector3 localPosition = transform.InverseTransformPoint(tappedPosition);
+      return new GridCellTappedEvent((int) localPosition.x / (GridSize + GridMargin),
+          (int) localPosition.y / (GridSize + GridMargin));
     }
   }
 }
