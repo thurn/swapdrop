@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace SwapDrop.UI {
-  public enum GemType {
-    BLUE,
-    RED
-  }
-
+namespace SwapDrop.Models {
   public sealed class GridCell {
     private readonly int _column;
     private readonly int _row;
@@ -21,19 +16,6 @@ namespace SwapDrop.UI {
     
     public override string ToString() {
       return string.Format("GridCell [row={0}, column={1}]", _row, _column);
-    }
-  }
-
-  public class GridController {
-
-    private readonly IGrid _grid;
-
-    public GridController(IGrid grid) {
-      _grid = grid;
-    }
-
-    public void OnCellTapped(GridCell cell) {
-      _grid.SpawnGemAtCell(cell, GemType.BLUE);
     }
   }
 }
