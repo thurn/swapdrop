@@ -1,7 +1,7 @@
 out/
-server/config/global.json
-server/node_modules
-server/cloud/app.js
+shared/config/global.json
+shared/node_modules
+shared/cloud/app.js
 
 # Unity generated #
 client/Temp/
