@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using UnityEngine;
 
-namespace SwapDrop.UI {
+namespace SwapDrop.Views {
   [TestFixture]
   internal class GridTests {
     [Test]

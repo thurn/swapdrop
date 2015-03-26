@@ -36,7 +36,7 @@ namespace SwapDrop.Views {
       print("Grid screen position: " + screenPosition);
       var worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
       print("Grid world position: " + worldPosition);
-      var bounds = renderer.bounds;
+      var bounds = GetComponent<Renderer>().bounds;
       print("Grid bounds: " + bounds);
     }
 
@@ -50,7 +50,7 @@ namespace SwapDrop.Views {
     }
  
     void Update() {
-      if (Input.GetMouseButtonUp(0) && renderer.bounds.Contains(Input.mousePosition)) {
+      if (Input.GetMouseButtonUp(0) && GetComponent<Renderer>().bounds.Contains(Input.mousePosition)) {
         CellTapped.Dispatch(GetTappedCell(Input.mousePosition));
       }
     }
