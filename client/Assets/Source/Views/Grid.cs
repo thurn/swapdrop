@@ -24,6 +24,9 @@ namespace SwapDrop.Views {
     /// </summary>
     internal readonly Signal<GridCell> CellTapped = new Signal<GridCell>();
  
+    [Inject]
+    public IUserInput UserInput { get; set; }
+ 
     private const int GridMargin = 4;
     private const int GridSize = 70;
     private const int NumberOfSquares = 4;
@@ -50,8 +53,8 @@ namespace SwapDrop.Views {
     }
  
     void Update() {
-      if (Input.GetMouseButtonUp(0) && GetComponent<Renderer>().bounds.Contains(Input.mousePosition)) {
-        CellTapped.Dispatch(GetTappedCell(Input.mousePosition));
+      if (UserInput.GetMouseButtonUp(0) && GetComponent<Renderer>().bounds.Contains(UserInput.MousePosition)) {
+        CellTapped.Dispatch(GetTappedCell(UserInput.MousePosition));
       }
     }
 

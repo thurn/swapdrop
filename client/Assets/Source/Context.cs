@@ -6,6 +6,7 @@ using strange.extensions.dispatcher.eventdispatcher.api;
 using strange.extensions.dispatcher.eventdispatcher.impl;
 using strange.extensions.command.api;
 using strange.extensions.command.impl;
+using SwapDrop.Views;
 
 namespace SwapDrop {
   /// <summary>
@@ -23,6 +24,8 @@ namespace SwapDrop {
     }
 
     protected override void mapBindings() {
+      injectionBinder.Bind<IUserInput>().To<InputFacade>();
+      mediationBinder.Bind<Grid>().To<GridMediator>();
     }
   }
 }
