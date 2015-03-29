@@ -2,6 +2,8 @@ out/
 shared/config/global.json
 shared/node_modules
 shared/cloud/app.js
+shared/entities/*.js
+shared/entities/*.cs
 
 # Unity generated #
 client/Temp/

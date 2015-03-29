@@ -1,8 +1,9 @@
-Entente is an entity class generator for UnityScript. It processes JSON files
-describing the desired entity classes and generates objects which are immutable
-by default and can be constructed by following a Builder pattern. It also
-generates an equivalent C# skeleton for the entities intended for use during
-development, since UnityScript types are not visible in IDEs like MonoDevleop.
+Entente is an entity class generator for JavaScript and C#. It processes JSON
+files describing the desired entity classes and generates objects which are
+immutable by default and can be constructed by following a Builder pattern. It
+generates a C# version and a Javascript version of each entity with an
+identical API. In this way, code can be written in either language to interact
+with the entities.
 
 Here is an example entity description file:
 
