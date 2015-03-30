@@ -1,6 +1,7 @@
 [
   {
-    "entityName": "GridCell",
+    "type": "entity",
+    "name": "GridCell",
     "desc": "Represents a cell location on the game board grid.",
     "fields": [
       {

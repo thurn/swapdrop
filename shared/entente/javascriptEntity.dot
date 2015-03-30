@@ -1,0 +1,19 @@
+var {{= it.name}} = function() {};
+var {{= it.name}}Builder = function() {};
+
+{{= it.name}}.newBuilder = function() {
+  return new {{= it.name}}Builder();
+}
+{{~ it.fields :field}}
+{{= it.name}}.prototype.Get{{= it.capitalize(field.name)}} = function() {
+  return this._{{= field.name}};
+};
+
+{{= it.name}}Builder.prototype.Get{{= it.capitalize(field.name)}} = function() {
+  return this._{{= field.name}};
+};
+
+{{= it.name}}Builder.prototype.Set{{= it.capitalize(field.name)}} = function({{= field.name}}) {
+  this._{{= field.name}} = {{= field.name}};
+};
+{{~}}

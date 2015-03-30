@@ -3,6 +3,7 @@ var dot = require("dot"),
     fs = require("fs"),
     path = require("path");
 
+dot.templateSettings.strip = false;
 var templates = dot.process({path: __dirname});
 
 glob("**/*.entity.json", {}, function(error, files) {
@@ -13,7 +14,24 @@ glob("**/*.entity.json", {}, function(error, files) {
       if (error) return;
       var fileName = path.join(path.dirname(file),
           path.basename(file).replace(".entity.json", ""));
-      fs.writeFile(fileName + ".js", templates.javascript(JSON.parse(data)));
+      var json = JSON.parse(data);
+      var output = "";
+      for (var j = 0; j < json.length; ++j) {
+        var object = json[j];
+        object.capitalize = function(string) {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+        };
+
+        if (object.type === "entity") {
+          output += templates.javascriptEntity(object);
+        } else if (object.enumName) {
+          output += templates.javascriptEnum(object);
+        } else {
+          throw "Unknown object type.";
+        }
+        output += "\n\n";
+      }
+      fs.writeFile(fileName + ".js", output);
     });
   }
 });

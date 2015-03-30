@@ -9,7 +9,8 @@ Here is an example entity description file:
 
 [
   {
-    "entityName": "GameListEntry",
+    "type": "entity",
+    "name": "GameListEntry",
     "desc": "A description of a game in progress.",
     "fields": [
       {
@@ -26,7 +27,8 @@ Here is an example entity description file:
     ]
   },
   {
-    "enumName": "ImageType",
+    "type": "enum",
+    "name": "ImageType",
     "desc": "Represents the possible types of images in the app."
     "values": [
       {
