@@ -24,7 +24,6 @@ namespace SwapDrop {
     }
 
     protected override void mapBindings() {
-      injectionBinder.Bind<IUserInput>().To<InputFacade>();
       mediationBinder.Bind<Grid>().To<GridMediator>();
     }
   }

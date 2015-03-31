@@ -22,10 +22,7 @@ namespace SwapDrop.Views {
     /// <summary>
     /// Invoked when a grid cell is tapped by the viewer.
     /// </summary>
-    internal readonly Signal<GridCell> CellTapped = new Signal<GridCell>();
- 
-    [Inject]
-    public IUserInput UserInput { get; set; }
+    public readonly Signal<GridCell> CellTapped = new Signal<GridCell>();
  
     private const int GridMargin = 4;
     private const int GridSize = 70;
@@ -34,13 +31,7 @@ namespace SwapDrop.Views {
     /// <summary>
     /// Initialize this instance.
     /// </summary>
-    internal void Init() {
-      var screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-      print("Grid screen position: " + screenPosition);
-      var worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-      print("Grid world position: " + worldPosition);
-      var bounds = GetComponent<Renderer>().bounds;
-      print("Grid bounds: " + bounds);
+    public void Init() {
     }
 
     /// <summary>
@@ -48,13 +39,13 @@ namespace SwapDrop.Views {
     /// </summary>
     /// <param name="cell">The cell on which to place the new gem.</param>
     /// <param name="type">The type of gem to spawn.</param>
-    internal void SpawnGemAtCell(GridCell cell, GemType type) {
+    public void SpawnGemAtCell(GridCell cell, GemType type) {
       print("Spawn gem at cell: " + cell);
     }
  
     void Update() {
-      if (UserInput.GetMouseButtonUp(0) && GetComponent<Renderer>().bounds.Contains(UserInput.MousePosition)) {
-        CellTapped.Dispatch(GetTappedCell(UserInput.MousePosition));
+      if (Input.GetMouseButtonUp(0) && GetComponent<Renderer>().bounds.Contains(Input.mousePosition)) {
+        CellTapped.Dispatch(GetTappedCell(Input.mousePosition));
       }
     }
 
