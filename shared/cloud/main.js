@@ -2,7 +2,10 @@ var Game = Parse.Object.extend("Game");
 
 Parse.Cloud.define("newGame", function(request, response) {
   var game = new Game();
-  game.set("text", "Hello, world!");
+  var gridCell = {};
+  Object.defineProperty(gridCell, "text", {value: "two"});
+  gridCell.text = "five";
+  game.set("text", gridCell.text);
   game.save(null, {
     success: function(newGame) {
       response.success(newGame.id);

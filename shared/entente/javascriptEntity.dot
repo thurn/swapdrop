@@ -1,19 +1,58 @@
-var {{= it.name}} = function() {};
-var {{= it.name}}Builder = function() {};
+"use strict";
 
-{{= it.name}}.newBuilder = function() {
-  return new {{= it.name}}Builder();
+var deepFreeze = require('deep-freeze'),
+    cloneDeep = require('lodash.clonedeep'),
+    isEqual = require('lodash.isequal');
+
+{{= it.name}} = {};
+
+/** Create a new Builder, optionally based on the provided entity. */
+{{= it.name}}.NewBuilder = function(entity) {
+  var builder = {};
+
+  {{~ it.fields :field}}Object.defineProperty(builder, "{{= it.capitalize(field.name)}}", {writable: true});
+  {{~}}
+  if (entity != null) {
+
+    {{~ it.fields :field}}builder.{{= it.capitalize(field.name)}} = cloneDeep(entity.{{= it.capitalize(field.name)}});
+    {{~}}
+  }
+
+  /** Create an immutable entity object from this builder. */
+  builder.Build = function() {
+    var result = {};
+
+    {{~ it.fields :field}}result.{{= it.capitalize(field.name)}} = cloneDeep(builder.{{= it.capitalize(field.name)}});
+    {{~}}
+    /** Create a new Builder object based on this entity. */
+    result.ToBuilder = function() {
+      return {{= it.name}}.NewBuilder(result);
+    }
+
+    /** Returns a string representation of this entity. */
+    result.ToString = function() {
+      return {{= it.name}} + " " + JSON.stringify(result, null, "  ");
+    }
+
+    /** Returns true if the provided object is deeply equal to this entity. */
+    result.Equals = function(object) {
+      return isEqual(result, object);
+    }
+
+    deepFreeze(result);
+    return result;
+  };
+
+  /** Returns a string representation of this builder. */
+  builder.ToString = function() {
+    return {{= it.name}} + "Builder " + JSON.stringify(builder, null, "  ");
+  }
+
+  /** Returns true if the provided object is deeply equal to this builder. */
+  builder.Equals = function(object) {
+    return isEqual(builder, object);
+  }
+
+  Object.seal(builder);
+  return builder;
 }
-{{~ it.fields :field}}
-{{= it.name}}.prototype.Get{{= it.capitalize(field.name)}} = function() {
-  return this._{{= field.name}};
-};
-
-{{= it.name}}Builder.prototype.Get{{= it.capitalize(field.name)}} = function() {
-  return this._{{= field.name}};
-};
-
-{{= it.name}}Builder.prototype.Set{{= it.capitalize(field.name)}} = function({{= field.name}}) {
-  this._{{= field.name}} = {{= field.name}};
-};
-{{~}}
