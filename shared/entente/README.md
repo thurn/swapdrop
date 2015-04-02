@@ -5,6 +5,8 @@ generates a C# version and a Javascript version of each entity with an
 identical API. In this way, code can be written in either language to interact
 with the entities.
 
+## Example
+
 Here is an example entity description file:
 
 [
@@ -44,3 +46,8 @@ Here is an example entity description file:
 ]
 
 Here is the generated code for the above description:
+
+## Reserved Property Names
+
+Some property names are reserved for use by the generated code. Properties cannot
+be named "Equals", "ToString", or "Build".

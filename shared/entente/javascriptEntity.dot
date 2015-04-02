@@ -1,58 +1,62 @@
 "use strict";
 
-var deepFreeze = require('deep-freeze'),
+var deepFreeze = require('deep-freeze-strict'),
     cloneDeep = require('lodash.clonedeep'),
     isEqual = require('lodash.isequal');
 
-{{= it.name}} = {};
+var {{= it.name}} = {};
 
 /** Create a new Builder, optionally based on the provided entity. */
-{{= it.name}}.NewBuilder = function(entity) {
+Object.defineProperty({{= it.name}}, "NewBuilder", {enumerable: true, value: function(entity) {
   var builder = {};
 
-  {{~ it.fields :field}}Object.defineProperty(builder, "{{= it.capitalize(field.name)}}", {writable: true});
+  {{~ it.fields :field}}Object.defineProperty(builder, "{{= field.name}}",
+      {writable: true, enumerable: true, value: null});
   {{~}}
   if (entity != null) {
 
-    {{~ it.fields :field}}builder.{{= it.capitalize(field.name)}} = cloneDeep(entity.{{= it.capitalize(field.name)}});
+    {{~ it.fields :field}}builder.{{= field.name}} = cloneDeep(entity.{{= field.name}});
     {{~}}
   }
 
   /** Create an immutable entity object from this builder. */
-  builder.Build = function() {
+  Object.defineProperty(builder, "Build", {value: function() {
     var result = {};
 
-    {{~ it.fields :field}}result.{{= it.capitalize(field.name)}} = cloneDeep(builder.{{= it.capitalize(field.name)}});
+    {{~ it.fields :field}}Object.defineProperty(result, "{{= field.name}}",
+        {value: cloneDeep(builder.{{= field.name}}), enumerable: true});
     {{~}}
     /** Create a new Builder object based on this entity. */
-    result.ToBuilder = function() {
+    Object.defineProperty(result, "ToBuilder", {value: function() {
       return {{= it.name}}.NewBuilder(result);
-    }
+    }});
 
     /** Returns a string representation of this entity. */
-    result.ToString = function() {
-      return {{= it.name}} + " " + JSON.stringify(result, null, "  ");
-    }
+    Object.defineProperty(result, "ToString", {value: function() {
+      return "{{= it.name}} " + JSON.stringify(result, null, "  ");
+    }});
 
     /** Returns true if the provided object is deeply equal to this entity. */
-    result.Equals = function(object) {
+    Object.defineProperty(result, "Equals", {value: function(object) {
       return isEqual(result, object);
-    }
+    }});
 
     deepFreeze(result);
     return result;
-  };
+  }});
 
   /** Returns a string representation of this builder. */
-  builder.ToString = function() {
-    return {{= it.name}} + "Builder " + JSON.stringify(builder, null, "  ");
-  }
+  Object.defineProperty(builder, "ToString", {value: function() {
+    return "{{= it.name}}Builder " + JSON.stringify(builder, null, "  ");
+  }});
 
   /** Returns true if the provided object is deeply equal to this builder. */
-  builder.Equals = function(object) {
+  Object.defineProperty(builder, "Equals", {value: function(object) {
     return isEqual(builder, object);
-  }
+  }});
 
   Object.seal(builder);
   return builder;
-}
+}});
+
+module.exports = {{= it.name}};
