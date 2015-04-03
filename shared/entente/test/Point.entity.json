@@ -1,19 +1,17 @@
-[
-  {
-    "type": "entity",
-    "name": "Point",
-    "desc": "Represents a point in a 2D grid.",
-    "fields": [
-      {
-        "name": "Column",
-        "type": "int",
-        "desc": "The column number (0-based) of the point."
-      },
-      {
-        "name": "Row",
-        "type": "int",
-        "desc": "The row number (0-based) of the point."
-      }
-    ]
-  }
-]
+{
+  "type": "entity",
+  "name": "Point",
+  "desc": "Represents a point in a 2D grid.",
+  "fields": [
+    {
+      "name": "Column",
+      "type": "int",
+      "desc": "The column number (0-based) of the point."
+    },
+    {
+      "name": "Row",
+      "type": "int",
+      "desc": "The row number (0-based) of the point."
+    }
+  ]
+}

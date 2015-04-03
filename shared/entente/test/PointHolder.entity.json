@@ -1,0 +1,17 @@
+{
+  "type": "entity",
+  "name": "PointHolder",
+  "desc": "An object that holds a point and gives it a name.",
+  "fields": [
+    {
+      "name": "Point",
+      "type": "Point",
+      "desc": "The point to hold."
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "desc": "The name of the point."
+    }
+  ]
+}

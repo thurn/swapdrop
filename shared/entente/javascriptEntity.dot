@@ -2,9 +2,28 @@
 
 var deepFreeze = require('deep-freeze-strict'),
     cloneDeep = require('lodash.clonedeep'),
-    isEqual = require('lodash.isequal');
+    isEqual = require('lodash.isequal'),
+    isObject = require('lodash.isobject');
 
 var {{= it.name}} = {};
+
+var build = function(object) {
+  if (object == null) {
+    return null;
+  } else if (isObject(object)) {
+    return deepFreeze(cloneDeep(object.Build ? object.Build() : object));
+  } else {
+    return object;
+  }
+};
+
+var toBuilder = function(object) {
+  if (object == null) {
+    return null;
+  } else {
+    return cloneDeep(object.ToBuilder ? object.ToBuilder() : object);
+  }
+}
 
 /** Create a new Builder, optionally based on the provided entity. */
 Object.defineProperty({{= it.name}}, "NewBuilder", {enumerable: true, value: function(entity) {
@@ -15,7 +34,7 @@ Object.defineProperty({{= it.name}}, "NewBuilder", {enumerable: true, value: fun
   {{~}}
   if (entity != null) {
 
-    {{~ it.fields :field}}builder.{{= field.name}} = cloneDeep(entity.{{= field.name}});
+    {{~ it.fields :field}}builder.{{= field.name}} = toBuilder(entity.{{= field.name}});
     {{~}}
   }
 
@@ -24,7 +43,7 @@ Object.defineProperty({{= it.name}}, "NewBuilder", {enumerable: true, value: fun
     var result = {};
 
     {{~ it.fields :field}}Object.defineProperty(result, "{{= field.name}}",
-        {value: cloneDeep(builder.{{= field.name}}), enumerable: true});
+        {value: build(builder.{{= field.name}}), enumerable: true});
     {{~}}
     /** Create a new Builder object based on this entity. */
     Object.defineProperty(result, "ToBuilder", {value: function() {
@@ -41,7 +60,7 @@ Object.defineProperty({{= it.name}}, "NewBuilder", {enumerable: true, value: fun
       return isEqual(result, object);
     }});
 
-    deepFreeze(result);
+    Object.freeze(result);
     return result;
   }});
 

@@ -9,45 +9,39 @@ with the entities.
 
 Here is an example entity description file:
 
-[
-  {
-    "type": "entity",
-    "name": "GameListEntry",
-    "desc": "A description of a game in progress.",
-    "fields": [
-      {
-        "name": "vsString",
-        "type": "String",
-        "desc": "A string describing the players in the game."
-      },
-      {
-        "fieldName": "imageString",
-        "type": "ImageString",
-        "repeated": true,
-        "desc": "An image associated with this game list entry."
-      }
-    ]
-  },
-  {
-    "type": "enum",
-    "name": "ImageType",
-    "desc": "Represents the possible types of images in the app."
-    "values": [
-      {
-        "name": "LOCAL",
-        "desc": "An image which is included with the application."
-      },
-      {
-        "name": "FACEBOOK",
-        "desc": "An image which needs to be downloaded from Facebook."
-      }
-    ]
-  }
-]
+    {
+      "type": "entity",
+      "name": "Point",
+      "desc": "Represents a point in a 2D grid.",
+      "fields": [
+        {
+          "name": "Column",
+          "type": "int",
+          "desc": "The column number (0-based) of the point."
+        },
+        {
+          "name": "Row",
+          "type": "int",
+          "desc": "The row number (0-based) of the point."
+        }
+      ]
+    }
 
-Here is the generated code for the above description:
+To create a new Point object, you need obtain a new PointBuilder by calling the NewBuilder
+method. You can then set the desired values on the Builder object and call Build() when
+the object is done being constructed.
+
+    var pointBuilder = Point.NewBuilder();
+    pointBuilder.Column = 2;
+    pointBuilder.Row = 3;
+    var point = pointBuilder.Build();
+
+Various other convenience methods are provided. For example, you can invoke ToBuilder() on
+an entity to get back a Builder version of that entity. There are methods for getting a string
+representation of an entity (ToString) and for comparing entities for equality (Equals).
+
 
 ## Reserved Property Names
 
 Some property names are reserved for use by the generated code. Properties cannot
-be named "Equals", "ToString", or "Build".
+be named "Equals", "ToString", "ToBuilder", or "Build".

@@ -9,8 +9,9 @@ namespace SwapDrop.Views {
     public Grid grid { get; set; }
 
     public override void OnRegister() {
-      grid.Init();
-      grid.CellTapped.AddListener(cell => grid.SpawnGemAtCell(cell, GemType.BLUE));
+      grid.Init ();
+      grid [0] = AppDomainInitializer ();
+      grid.CellTapped.AddListener (cell => grid.SpawnGemAtCell (cell, GemType.BLUE));
     }
   }
 }
