@@ -1,0 +1,19 @@
+{
+  "type": "enum",
+  "name": "Colors",
+  "desc": "Represents possible primary colors.",
+  "values": [
+    {
+      "name": "Red",
+      "desc": "The color red."
+    },
+    {
+      "name": "Green",
+      "desc": "The color green."
+    },
+    {
+      "name": "Blue",
+      "desc": "The color blue."
+    }
+  ]
+}

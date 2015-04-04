@@ -2,7 +2,8 @@
 
 var should = require("should"),
     Point = require("./test/Point.js"),
-    PointHolder = require("./test/PointHolder.js");
+    PointHolder = require("./test/PointHolder.js"),
+    Colors = require("./test/Colors.js");
 
 var newPointBuilder = function() {
   var pointBuilder = Point.NewBuilder();
@@ -37,7 +38,7 @@ describe('Point', function() {
     newPointBuilder().Build().Equals(point).should.equal(true);
   });
 
-  it("should not be possible to mutate a field.", function() {
+  it("should not be possible to mutate a field", function() {
     var point = newPointBuilder().Build();
     should.throws(function() {
       point.Column = 5;
@@ -115,14 +116,14 @@ describe("PointHolder", function() {
     builder.Build().Point.Row.should.equal(1);
   });
 
-  it("should allow mutation of nested builders.", function() {
+  it("should allow mutation of nested builders", function() {
     var builder = newHolderBuilder();
     builder.Point.Column = 4;
     var holder = builder.Build();
     holder.Point.Column.should.equal(4);
   });
 
-  it("should allow assignment of builders.", function() {
+  it("should allow assignment of builders", function() {
     var pointBuilder = newPointBuilder();
     var holderBuilder = newHolderBuilder();
     pointBuilder.Column = 7;
@@ -133,7 +134,7 @@ describe("PointHolder", function() {
     holder.Point.Column.should.equal(7);
   });
 
-  it("should provide recursive equality.", function() {
+  it("should provide recursive equality", function() {
     var holder1 = newHolderBuilder().Build();
     var holder2 = newHolderBuilder().Build();
     holder1.Equals(holder2).should.equal(true);
@@ -141,5 +142,27 @@ describe("PointHolder", function() {
     builder.Point.Row = 7;
     var holder3 = builder.Build();
     holder1.Equals(holder3).should.equal(false);
+  });
+});
+
+describe("Colors", function() {
+  it("should have two colors that are not equal", function() {
+    (Colors.Red == Colors.Blue).should.equal(false);
+  });
+
+  it("should have enum values that are equal to themselves", function() {
+    (Colors.Red == Colors.Red).should.equal(true);
+  });
+
+  it("should not be possible to add new colors", function() {
+    should.throws(function() {
+      Colors.Yellow = "Colors.Yellow";
+    });
+  });
+
+  it("should not be possible to change the values of colors", function() {
+    should.throws(function() {
+      Colors.Red = "Colors.Blue";
+    });
   });
 });

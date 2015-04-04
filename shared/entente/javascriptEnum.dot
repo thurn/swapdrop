@@ -1,0 +1,9 @@
+"use strict";
+
+var {{= it.name}} = Object.freeze({
+
+  {{~ it.values :value}}"{{= value.name}}": "{{= it.name}}.{{= value.name}}",
+  {{~}}
+});
+
+module.exports = {{= it.name}};
