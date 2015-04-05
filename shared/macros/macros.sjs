@@ -1,19 +1,12 @@
-macro class {
+macro (class) {
   rule {
     $className {
       $(function $methodName $methodParams $methodBody) ...
     }
   } => {
     function $className() {
-      $($className.prototype.$methodName =
+      $(this.$methodName =
           function $methodName $methodParams $methodBody;) ...
     }
-  }
-}
-
-macro # {
-  rule {
-    pragma strict
-  } => {
   }
 }

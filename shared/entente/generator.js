@@ -20,9 +20,9 @@ glob("**/*.entity.json", {}, function(error, files) {
       };
 
       if (object.type === "entity") {
-        output += templates.javascriptEntity(object);
+        output += templates.js_entity(object);
       } else if (object.type == "enum") {
-        output += templates.javascriptEnum(object);
+        output += templates.js_enum(object);
       } else {
         throw "Unknown object type.";
       }
