@@ -7,6 +7,9 @@ gulp.task("default", function() {
     .pipe(concat('app.js'))
     .pipe(replace("#pragma strict\n\n", ""))
     .pipe(replace(/ :(\w|\.)+/g, ""))
+    .pipe(replace(/(private|public|protected|internal) var/g, "var"))
+    .pipe(replace(/(private|public|protected|internal) (static )?function/g, "$2function"))
+    .pipe(replace(/static function (\w+)/g, "this.prototype.$1 = function"))
     .pipe(replace(/function (\w+)/g, "this.$1 = function"))
     .pipe(replace(/class (\w+)/g, "function $1()"))
     .pipe(gulp.dest('cloud'));
