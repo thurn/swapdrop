@@ -1,22 +1,18 @@
 #pragma strict
 
 class Model {
-  private var x :int;
-  public var y :String;
-
-  private function Model(arg1 :int, arg2 :Boo.Lang.Hash) {
+  function Model(arg :int) {
+    this.y = Model.Static(arg);
   }
 
-  public function NewGame(configuration :Boo.Lang.Hash, players :UnityScript.Lang.Array) {
-    var four = function() {
-      return 7;
-    }
-    var three = alert("hello!");
+  private var x = 15;
+  public var y :int;
+
+  public function GetX() {
+    return this.x;
   }
 
-  public static function Static(value :Boo.Lang.Hash) {
-    return this.NewGame();
+  public static function Static(value :String) {
+    return value;
   }
 }
-
-var model = new Model();
