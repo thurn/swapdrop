@@ -20,14 +20,14 @@ glob("**/*.entity.json", {}, function(error, files) {
       };
 
       if (object.type === "entity") {
-        output += templates.js_entity(object);
+        output += templates.unityscript_entity(object);
       } else if (object.type == "enum") {
         output += templates.js_enum(object);
       } else {
         throw "Unknown object type.";
       }
       output += "\n\n";
-      fs.writeFile(fileName + ".js", output);
+      fs.writeFile(fileName + ".unity.js", output);
     }.bind(this, files[i]));
   }
 });

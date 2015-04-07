@@ -1,76 +1,10 @@
 #pragma "strict"
 
-var {{= it.name}} = {};
-
-var build = function(object) {
-  if (object == null) {
-    return null;
-  } else if (isObject(object)) {
-    return deepFreeze(cloneDeep(object.Build ? object.Build() : object));
-  } else {
-    return object;
-  }
-};
-
-var toBuilder = function(object) {
-  if (object == null) {
-    return null;
-  } else {
-    return cloneDeep(object.ToBuilder ? object.ToBuilder() : object);
+class {{= it.name}} {
+  public function {{= it.name}}(builder :{{= it.name}}Builder) {
   }
 }
 
-/** Create a new Builder, optionally based on the provided entity. */
-Object.defineProperty({{= it.name}}, "NewBuilder", {enumerable: true, value: function(entity) {
-  var builder = {};
+class {{= it.name}}Builder {
 
-  {{~ it.fields :field}}Object.defineProperty(builder, "{{= field.name}}",
-      {writable: true, enumerable: true, value: null});
-  {{~}}
-  if (entity != null) {
-
-    {{~ it.fields :field}}builder.{{= field.name}} = toBuilder(entity.{{= field.name}});
-    {{~}}
-  }
-
-  /** Create an immutable entity object from this builder. */
-  Object.defineProperty(builder, "Build", {value: function() {
-    var result = {};
-
-    {{~ it.fields :field}}Object.defineProperty(result, "{{= field.name}}",
-        {value: build(builder.{{= field.name}}), enumerable: true});
-    {{~}}
-    /** Create a new Builder object based on this entity. */
-    Object.defineProperty(result, "ToBuilder", {value: function() {
-      return {{= it.name}}.NewBuilder(result);
-    }});
-
-    /** Returns a string representation of this entity. */
-    Object.defineProperty(result, "ToString", {value: function() {
-      return "{{= it.name}} " + JSON.stringify(result, null, "  ");
-    }});
-
-    /** Returns true if the provided object is deeply equal to this entity. */
-    Object.defineProperty(result, "Equals", {value: function(object) {
-      return isEqual(result, object);
-    }});
-
-    Object.freeze(result);
-    return result;
-  }});
-
-  /** Returns a string representation of this builder. */
-  Object.defineProperty(builder, "ToString", {value: function() {
-    return "{{= it.name}}Builder " + JSON.stringify(builder, null, "  ");
-  }});
-
-  /** Returns true if the provided object is deeply equal to this builder. */
-  Object.defineProperty(builder, "Equals", {value: function(object) {
-    return isEqual(builder, object);
-  }});
-
-  Object.seal(builder);
-  return builder;
-}});
-
-module.exports = {{= it.name}};
+}
