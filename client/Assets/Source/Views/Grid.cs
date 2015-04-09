@@ -24,14 +24,19 @@ namespace SwapDrop.Views {
     /// </summary>
     public readonly Signal<GridCell> CellTapped = new Signal<GridCell>();
  
-    private const int GridMargin = 4;
-    private const int GridSize = 70;
-    private const int NumberOfSquares = 4;
+    private const int kGridMargin = 4;
+    private const int kGridSize = 70;
+    private const int kNumberOfSquares = 4;
+
+    private Renderer _renderer;
  
     /// <summary>
     /// Initialize this instance.
     /// </summary>
     public void Init() {
+      _renderer = GetComponent<Renderer>();
+      print("screen width " + Screen.width);
+      print("screen height " + Screen.height);
     }
 
     /// <summary>
@@ -44,15 +49,15 @@ namespace SwapDrop.Views {
     }
  
     void Update() {
-      if (Input.GetMouseButtonUp(0) && GetComponent<Renderer>().bounds.Contains(Input.mousePosition)) {
+      if (Input.GetMouseButtonUp(0) && _renderer.bounds.Contains(Input.mousePosition)) {
         CellTapped.Dispatch(GetTappedCell(Input.mousePosition));
       }
     }
 
     GridCell GetTappedCell(Vector3 tappedPosition) {
       Vector3 localPosition = transform.InverseTransformPoint(tappedPosition);
-      return new GridCell((int) localPosition.x / (GridSize + GridMargin),
-          (int) localPosition.y / (GridSize + GridMargin));
+      return new GridCell((int) localPosition.x / (kGridSize + kGridMargin),
+          (int) localPosition.y / (kGridSize + kGridMargin));
     }
   }
 }

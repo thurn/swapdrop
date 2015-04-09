@@ -10,7 +10,7 @@
    version="1.0"
    width="100%"
    height="100%"
-   viewBox="0 0 200 200"
+   viewBox="0 0 70 70"
    id="_red04"
    inkscape:version="0.48.2 r9819"
    sodipodi:docname="red.svg"
@@ -43,7 +43,7 @@
      id="namedview55"
      showgrid="false"
      inkscape:zoom="2.7874323"
-     inkscape:cx="102.39865"
+     inkscape:cx="41.769375"
      inkscape:cy="95.495367"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -54,7 +54,7 @@
   <g
      id="red04"
      style="display:inline"
-     transform="matrix(3.7499625,0,0,3.7499625,8.3696663,9.8696513)">
+     transform="matrix(1.3124869,0,0,1.3124869,2.9293826,3.4543774)">
     <path
        d="M 6,15.94 6,31.81 16.72,42.31 31.3,42.74 42.66,31.59 42.87,16.48 32.48,5.54 16.93,5.33 6,15.94 z"
        id="p2481"

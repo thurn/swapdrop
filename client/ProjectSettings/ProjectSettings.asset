@@ -5,7 +5,7 @@ PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   AndroidProfiler: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 0
   targetDevice: 2
   targetGlesGraphics: -1
   targetIOSGraphics: -1
@@ -32,10 +32,10 @@ PlayerSettings:
   iosAppInBackgroundBehavior: 0
   displayResolutionDialog: 1
   allowedAutorotateToPortrait: 1
-  allowedAutorotateToPortraitUpsideDown: 1
-  allowedAutorotateToLandscapeRight: 1
-  allowedAutorotateToLandscapeLeft: 1
-  useOSAutorotation: 1
+  allowedAutorotateToPortraitUpsideDown: 0
+  allowedAutorotateToLandscapeRight: 0
+  allowedAutorotateToLandscapeLeft: 0
+  useOSAutorotation: 0
   use32BitDisplayBuffer: 1
   disableDepthAndStencilBuffers: 0
   defaultIsFullScreen: 1
@@ -95,12 +95,12 @@ PlayerSettings:
   preloadShaders: 0
   StripUnusedMeshComponents: 0
   iPhoneSdkVersion: 988
-  iPhoneTargetOSVersion: 22
+  iPhoneTargetOSVersion: 28
   uIPrerenderedIcon: 0
   uIRequiresPersistentWiFi: 0
-  uIStatusBarHidden: 1
+  uIStatusBarHidden: 0
   uIExitOnSuspend: 0
-  uIStatusBarStyle: 0
+  uIStatusBarStyle: 1
   iPhoneSplashScreen: {fileID: 0}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
@@ -131,7 +131,11 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   resolutionDialogBanner: {fileID: 0}
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - m_Icon: {fileID: 0}
+      m_Size: 128
   m_BuildTargetBatching: []
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
@@ -372,13 +376,15 @@ PlayerSettings:
   WebGL::audioCompressionFormat: 4
   WebGL::exceptionSupport: 0
   WebGL::memorySize: 256
-  iOS::Architecture: 2
+  iOS::Architecture: 0
   iOS::ScriptingBackend: 0
   boolPropertyNames:
   - WebGL::dataCaching
   - XboxOne::enus
+  - iOS::UseIl2CppPrecompiledHeader
   WebGL::dataCaching: 0
   XboxOne::enus: 1
+  iOS::UseIl2CppPrecompiledHeader: 0
   stringPropertyNames:
   - WebGL::emscriptenArgs
   - WebGL::template
