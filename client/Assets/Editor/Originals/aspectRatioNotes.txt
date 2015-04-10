@@ -8,7 +8,8 @@ We define the bottom left of the gameplay box to be the origin in world
 coordinates and all objects to have a bottom left pivot point. This maps Unity
 screen coordinates directly to world coordinates. Thus, the viewport box is
 positioned at world coordinates (-50, -45) and the main camera is positioned at
-world coordinates (150, 255).
+world coordinates (150, 255, -10) with an Orthographic projection and a camera
+size of 255.
 
 Here are some estimated scaled resolutions on various devices:
 
