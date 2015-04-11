@@ -1,15 +1,22 @@
 All game programming uses a standard 10:17 coordinate system. The primary
-gameplay happens within a 300x510 "gameplay" box. A larger 400x600 viewport box
+gameplay happens within a 300x510 "gameplay" box. A larger 400x600 background box
 defines the maximum screen extent on any platform, giving a maximum side margin
-of 50 pixels and a maximum top margin of 45 pixels. The gameplay box is centered
-inside the viewport box.
+of 50 pixels per side and a maximum top margin of 45 pixels per side. The gameplay
+box is centered inside the background box.
 
 We define the bottom left of the gameplay box to be the origin in world
 coordinates and all objects to have a bottom left pivot point. This maps Unity
-screen coordinates directly to world coordinates. Thus, the viewport box is
+screen coordinates directly to world coordinates. Thus, the background box is
 positioned at world coordinates (-50, -45) and the main camera is positioned at
-world coordinates (150, 255, -10) with an Orthographic projection and a camera
-size of 255.
+world coordinates (150, 255, -10).
+
+On some platforms like iOS, it's desirable to render a bit of the game background
+under the status bar. This can be acheived by setting the camera size to be the
+actual resolution of the screen and employing a smaller gameplay box. For example,
+for an iPad, the screen resolution is 1536x2048 with the status bar occupying the
+top 40 pixels of the screen. The "gameplay" box is defined to be just 1181x2008
+with the camera positioned at screen coordinates (590, 1024) instead of (590, 1004)
+and the camera size set to 1024.
 
 Here are some estimated scaled resolutions on various devices:
 
@@ -19,9 +26,10 @@ Here are some estimated scaled resolutions on various devices:
 - Margins: 8 pixel top margin.
 
 ## iPhone 6
-- Device resolution: 750x1294
+- Device resolution: 750x1334 (750x1294 with status bar)
 - Game resolution: 750x1275
 - Margins: 19 pixel top margin.
+- Scale factor: 2.5 (225 DPI)
 
 ## iPhone 6+
 - Device resolution: 1080x1880
@@ -29,7 +37,7 @@ Here are some estimated scaled resolutions on various devices:
 - Margins: 44 pixel top margin.
 
 ## iPad
-- Device resolution: 1536x2008
+- Device resolution: 1536x2048 (1536x2008 with status bar)
 - Game resolution: 1181x2008
 - Margins: 355 pixel side margin
 - Scale factor: 3.9366666666666 (354.3 DPI)
