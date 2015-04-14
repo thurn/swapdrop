@@ -11,8 +11,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.2"
-   width="1575"
-   height="2362"
+   width="400"
+   height="600"
    id="svg2"
    inkscape:version="0.48.2 r9819"
    sodipodi:docname="background.svg"
@@ -33,7 +33,7 @@
      id="namedview226"
      showgrid="false"
      inkscape:zoom="0.15053439"
-     inkscape:cx="676.96477"
+     inkscape:cx="-445.70228"
      inkscape:cy="877.26862"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -785,7 +785,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -793,7 +793,7 @@
      style="font-size:150px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:NSimSun;-inkscape-font-specification:NSimSun"
      xml:space="preserve"
      id="flowRoot11018"
-     transform="translate(-39.999893,1379.6377)"><flowRegion
+     transform="translate(-39.999893,-382.3623)"><flowRegion
        id="flowRegion11020"><rect
          style="font-size:150px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:NSimSun;-inkscape-font-specification:NSimSun"
          id="rect11022"
@@ -803,7 +803,7 @@
          width="2580.9397" /></flowRegion><flowPara
        id="flowPara11024" /></flowRoot>  <g
      id="g4243"
-     transform="matrix(1.96833,0,0,1.9360623,0.16820987,0.00185686)">
+     transform="matrix(0.5,0,0,0.49180328,5.3311157e-5,-3.6397504e-5)">
     <g
        transform="matrix(1.3125,0,0,1.3125,-2813.6441,3231.5401)"
        clip-path="url(#clipPath3512)"
