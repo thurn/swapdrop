@@ -12,12 +12,8 @@ namespace SwapDrop {
       Screen.SetResolution(Screen.width, Screen.height, false);
       context = new Context(this);
 
-      Camera.main.transform.position = new Vector3(Screen.width / 2.0f,
-                                                   Screen.height / 2.0f,
-                                                   -10.0f);
-      Camera.main.orthographicSize = Screen.height / 2.0f;
-
       Scaler scaler = new Scaler();
+      scaler.UpdateMainCamera();
       foreach (Transform transform in GetComponentsInChildren<Transform>()) {
         scaler.Scale(transform);
       }
