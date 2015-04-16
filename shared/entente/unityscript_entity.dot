@@ -1,10 +1,41 @@
-#pragma "strict"
+#pragma strict
 
 class {{= it.name}} {
-  public function {{= it.name}}(builder :{{= it.name}}Builder) {
+  function {{= it.name}}(builder :{{= it.name}}Builder) {
+    {{~ it.fields :field}}
+    this.{{= field.name}} = builder.{{= field.name}};{{~}}
+
   }
+  {{~ it.fields :field}}
+  public var {{= field.name}} :{{= field.type}};{{~}}
+
+  public function ToBuilder() {
+    return {{= it.name}}.NewBuilderFrom(this);
+  }
+
+  public static function NewBuilder() {
+    return new {{= it.name}}Builder(null);
+  }
+
+  public static function NewBuilderFrom(entity :{{= it.name}}) {
+    return new {{= it.name}}Builder(entity);
+  }
+
 }
 
 class {{= it.name}}Builder {
+  function {{= it.name}}Builder(entity :{{= it.name}}) {
+    if (entity != null) {
+      {{~ it.fields :field}}
+      this.{{= field.name}} = entity.{{= field.name}};{{~}}
+
+    }
+  }
+  {{~ it.fields :field}}
+  public var {{= field.name}} :{{= field.type}};{{~}}
+
+  public function Build() {
+    return new {{= it.name}}(this);
+  }
 
 }
