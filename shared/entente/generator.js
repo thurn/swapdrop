@@ -15,19 +15,16 @@ glob("**/*.entity.json", {}, function(error, files) {
           path.basename(file).replace(".entity.json", ""));
       var object = JSON.parse(data);
       var output = "";
-      object.capitalize = function(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      };
 
       if (object.type === "entity") {
         output += templates.unityscript_entity(object);
       } else if (object.type == "enum") {
-        output += templates.js_enum(object);
+        output += templates.unityscript_enum(object);
       } else {
         throw "Unknown object type.";
       }
       output += "\n\n";
-      fs.writeFile(fileName + ".unity.js", output);
+      fs.writeFile(fileName + ".js", output);
     }.bind(this, files[i]));
   }
 });

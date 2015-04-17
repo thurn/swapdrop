@@ -1,0 +1,8 @@
+"use strict";
+
+var {{= it.name}} ={
+  {{~ it.values :value}}"{{= value.name}}": "{{= it.name}}.{{= value.name}}",
+  {{~}}
+};
+
+module.exports = {{= it.name}};

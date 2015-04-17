@@ -5,6 +5,23 @@ generates a C# version and a Javascript version of each entity with an
 identical API. In this way, code can be written in either language to interact
 with the entities.
 
+## Types
+
+Entente supports fields with the following primitive types:
+
+* int32
+* int64
+* float32
+* float64
+* boolean
+* string
+
+In addition to these primitives, fields can be declared as any Entity type, provided that
+an entity with the given name is found in the input JSON.
+
+Furthermore, any field can include "repeated": true in its JSON to generate a List containing
+values of the indicated type. Repeated field names should be singular, not pluralized.
+
 ## Example
 
 Here is an example entity description file:
@@ -31,10 +48,10 @@ To create a new Point object, you need obtain a new PointBuilder by calling the 
 method. You can then set the desired values on the Builder object and call Build() when
 the object is done being constructed.
 
-    var pointBuilder = Point.NewBuilder();
-    pointBuilder.Column = 2;
-    pointBuilder.Row = 3;
-    var point = pointBuilder.Build();
+    var point = Point.NewBuilder()
+      .SetColumn(2)
+      .SetRow(3)
+      .Build();
 
 Various other convenience methods are provided. For example, you can invoke ToBuilder() on
 an entity to get back a Builder version of that entity. There are methods for getting a string
