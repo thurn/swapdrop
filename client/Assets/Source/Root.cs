@@ -13,10 +13,7 @@ namespace SwapDrop {
       context = new Context(this);
 
       Scaler scaler = new Scaler();
-      scaler.UpdateMainCamera();
-      foreach (Transform transform in GetComponentsInChildren<Transform>()) {
-        scaler.Scale(transform);
-      }
+      scaler.Scale(this);
     }
   }
 }

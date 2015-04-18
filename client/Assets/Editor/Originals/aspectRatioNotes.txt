@@ -24,6 +24,9 @@ Here are some estimated scaled resolutions on various devices:
 - Device resolution: 640x1096
 - Game resolution: 640x1088
 - Margins: 8 pixel top margin.
+- Scale factor: 2.133333333 (192 DPI)
+
+## Nexus 5
 
 ## iPhone 6
 - Device resolution: 750x1334 (750x1294 with status bar)
