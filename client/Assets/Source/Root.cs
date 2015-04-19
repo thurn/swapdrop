@@ -7,9 +7,8 @@ namespace SwapDrop {
   /// </summary>
   public class Root : ContextView {
     void Awake() {
-      // We do this instead of setting full screen directly in order to show the status bar
-      // properly on Android.
-      Screen.SetResolution(Screen.width, Screen.height, false);
+      Screen.fullScreen = false;
+ 
       context = new Context(this);
 
       Scaler scaler = new Scaler();

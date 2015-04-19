@@ -20,6 +20,10 @@ public class Scaler {
 
     Dictionary<String, Sprite> spriteMap = new Dictionary<String, Sprite>();
     Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/dpi" + TargetDpi());
+    Debug.Log("Screen width " + Screen.width);
+    Debug.Log("Screen height " + Screen.height);
+    Debug.Log("Target width " + TargetGameWidth());
+    Debug.Log("Target height " + TargetGameHeight());
     Debug.Log("Target DPI: " + TargetDpi());
     if (sprites.Length == 0) throw new Exception("Unsupported DPI: " + TargetDpi());
     foreach (Sprite sprite in sprites) {

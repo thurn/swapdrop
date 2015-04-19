@@ -146,7 +146,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 231207386}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1 &231207384
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +184,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1267621671}
+  - {fileID: 615329767}
   - {fileID: 2030217036}
   - {fileID: 1298410119}
   - {fileID: 226978597}
@@ -241,11 +243,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 615329765}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 224, y: 109, z: 0}
+  m_LocalPosition: {x: 221, y: 260, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 231207386}
+  m_RootOrder: 1
 --- !u!1 &905532565
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +275,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 231207386}
-  m_RootOrder: 5
+  m_RootOrder: 7
 --- !u!212 &905532567
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -353,7 +355,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 231207386}
-  m_RootOrder: 4
+  m_RootOrder: 6
 --- !u!1 &1267621669
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,8 +408,8 @@ Transform:
   m_LocalPosition: {x: 80, y: 184, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 231207386}
+  m_RootOrder: 0
 --- !u!1 &1281950437
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +469,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 231207386}
-  m_RootOrder: 3
+  m_RootOrder: 5
 --- !u!1 &1298410116
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +529,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 231207386}
-  m_RootOrder: 1
+  m_RootOrder: 3
 --- !u!1 &1943654047
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,4 +673,4 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 231207386}
-  m_RootOrder: 0
+  m_RootOrder: 2
