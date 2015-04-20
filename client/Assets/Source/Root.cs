@@ -8,7 +8,7 @@ namespace SwapDrop {
   public class Root : ContextView {
     void Awake() {
       Screen.fullScreen = false;
- 
+   
       context = new Context(this);
 
       Scaler scaler = new Scaler();
