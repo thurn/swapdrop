@@ -8,10 +8,13 @@ namespace SwapDrop {
   public class Root : ContextView {
     void Awake() {
       Screen.fullScreen = false;
-   
+      AndroidPlugin androidPlugin = new AndroidPlugin();
+      androidPlugin.Init();
+      androidPlugin.ShowStatusBar();
+
       context = new Context(this);
 
-      Scaler scaler = new Scaler();
+      Scaler scaler = new Scaler(0);
       scaler.Scale(this);
     }
   }
