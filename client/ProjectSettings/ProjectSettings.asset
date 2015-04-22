@@ -98,7 +98,7 @@ PlayerSettings:
   iPhoneTargetOSVersion: 28
   uIPrerenderedIcon: 0
   uIRequiresPersistentWiFi: 0
-  uIStatusBarHidden: 0
+  uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 1
   iPhoneSplashScreen: {fileID: 0}

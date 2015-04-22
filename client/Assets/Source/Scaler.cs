@@ -16,7 +16,6 @@ namespace SwapDrop {
 
     public Scaler(int statusBarHeight) {
       _statusBarHeight = statusBarHeight;
-      _statusBarHeight = 0;
     }
 
     public void Scale(Component component) {
