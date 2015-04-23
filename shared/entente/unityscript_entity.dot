@@ -1,13 +1,38 @@
+{{##def.getters:
+  {{~ it.fields :field}}
+  {{? field.repeated}}
+  public function Get{{= field.name}}List() {
+    return List.AsReadOnly(this._{{= field.name}}List);
+  }
+  {{??}}
+  public function Get{{= field.name}}() {
+    return this._{{= field.name}};
+  }
+  {{?}}
+  {{~}}
+#}}
+
+{{##def.vars:
+  {{~ it.fields :field}}
+  {{? field.repeated}}
+  private var _{{= field.name}}List :UnityScript.Lang.Array;
+  {{??}}
+  private var _{{= field.name}} :{{= field.type}};
+  {{?}}
+  {{~}}
+#}}
+
 #pragma strict
 
 class {{= it.name}} {
   function {{= it.name}}(builder :{{= it.name}}Builder) {
     {{~ it.fields :field}}
-    this._{{= field.name}} = builder.{{= field.name}};{{~}}
+    this._{{= field.name}} = builder.{{= field.name}};
+    {{~}}
 
   }
-  {{~ it.fields :field}}
-  private var _{{= field.name}} :{{= field.type}};{{~}}
+
+  {{#def.vars}}
 
   public function ToBuilder() {
     return {{= it.name}}.NewBuilderFrom(this);
@@ -20,41 +45,51 @@ class {{= it.name}} {
   public static function NewBuilderFrom(entity :{{= it.name}}) {
     return new {{= it.name}}Builder(entity);
   }
-  {{~ it.fields :field}}
-  public function Get{{= field.name}}() {
-    return this._{{= field.name}};
-  }
-  {{~}}
+  {{#def.getters}}
 }
 
 class {{= it.name}}Builder {
   function {{= it.name}}Builder(entity :{{= it.name}}) {
-    {{~ it.fields :field}}{{? field.repeated}}this._{{= field.name}}List = [];{{?}}
+    {{~ it.fields :field}}
+    {{? field.repeated}}
+    this._{{= field.name}}List = [];
+    {{?}}
     {{~}}
     if (entity != null) {
 
-      {{~ it.fields :field}}{{? field.repeated}}this._{{= field.name}}List = entity.Get{{= field.name}}List();{{??}}this._{{= field.name}} = entity.Get{{= field.name}}();{{?}}
+      {{~ it.fields :field}}
+      {{? field.repeated}}
+      this._{{= field.name}}List = entity.Get{{= field.name}}List();
+      {{??}}
+      this._{{= field.name}} = entity.Get{{= field.name}}();
+      {{?}}
       {{~}}
     }
   }
-  {{~ it.fields :field}}
-  private var _{{= field.name}} :{{= field.type}};{{~}}
+
+  {{#def.vars}}
 
   public function Build() {
     return new {{= it.name}}(this);
   }
-  {{~ it.fields :field}}{{? field.repeated}}
+  {{~ it.fields :field}}
+  {{? field.repeated}}
   public function Add{{= field.name}}(value :{{= field.type}}) {
     this._{{= field.name}}List.push(value);
   }
-  {{??}}
-  public function Get{{= field.name}}() {
-    return this._{{= field.name}};
-  }
 
+  public function AddAll{{= field.name}}(list :UnityScript.Lang.Array) {
+    for (var i = 0; i < list.length; ++i) {
+      this._{{= field.name}}List.push(list[i]);
+    }
+  }
+  {{??}}
   public function Set{{= field.name}}(value :{{= field.type}}) {
     this._{{= field.name}} = value;
     return this;
   }
-  {{?}}{{~}}
+  {{?}}
+  {{~}}
+
+  {{#def.getters}}
 }

@@ -23,7 +23,10 @@ glob("**/*.entity.json", {}, function(error, files) {
       } else {
         throw "Unknown object type.";
       }
-      output += "\n\n";
+      // Strip blank lines:
+      output = output.replace(/\s+[\n]/g, "\n");
+      output += "\n";
+
       fs.writeFile(fileName + ".js", output);
     }.bind(this, files[i]));
   }
