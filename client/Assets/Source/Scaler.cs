@@ -7,18 +7,81 @@ namespace SwapDrop {
     public Vector3 Position { get; set; }
   }
 
-  public class Scaler {
+  public class Scaler : MonoBehaviour {
     private const double kAspectRatio = 1.7;
     private const double kWorldWidth = 300.0;
     private const double kStandardDpi = 90.0;
 
     private int _statusBarHeight;
-
-    public Scaler(int statusBarHeight) {
-      _statusBarHeight = statusBarHeight;
+    private DeviceOrientation _deviceOrientation = DeviceOrientation.Unknown;
+    
+    public void Start() {
+      // TODO: Get this from the device
+      _statusBarHeight = Application.platform == RuntimePlatform.IPhonePlayer ? 40 : 0;
     }
 
-    public void Scale(MonoBehaviour component) {
+    public void Update() {
+      DeviceOrientation newOrientation = Input.deviceOrientation;
+      if (newOrientation != _deviceOrientation
+          && newOrientation != DeviceOrientation.FaceUp
+          && newOrientation != DeviceOrientation.FaceDown) {
+        _deviceOrientation = newOrientation;
+        Scale(this, GetRotationAngle(newOrientation));
+      }
+    }
+
+    public float GetRotationAngle(DeviceOrientation newOrientation) {
+      switch (newOrientation) {
+      case DeviceOrientation.Portrait:
+        switch (_deviceOrientation) {
+        case DeviceOrientation.LandscapeLeft:
+          return -90;
+        case DeviceOrientation.LandscapeRight:
+          return 90;
+        case DeviceOrientation.PortraitUpsideDown:
+          return 180;
+        default:
+            return 0;
+        }
+      case DeviceOrientation.LandscapeLeft:
+        switch (_deviceOrientation) {
+        case DeviceOrientation.Portrait:
+          return 90;
+        case DeviceOrientation.LandscapeRight:
+          return 180;
+        case DeviceOrientation.PortraitUpsideDown:
+          return -90;
+        default:
+          return 0;
+        }
+      case DeviceOrientation.LandscapeRight:
+        switch (_deviceOrientation) {
+        case DeviceOrientation.LandscapeLeft:
+          return 180;
+        case DeviceOrientation.Portrait:
+          return -90;
+        case DeviceOrientation.PortraitUpsideDown:
+          return 90;
+        default:
+          return 0;
+        }
+      case DeviceOrientation.PortraitUpsideDown:
+        switch (_deviceOrientation) {
+        case DeviceOrientation.LandscapeLeft:
+          return 90;
+        case DeviceOrientation.LandscapeRight:
+          return -90;
+        case DeviceOrientation.Portrait:
+          return 180;
+        default:
+          return 0;
+        }
+      default:
+        return 0;
+      }
+    }
+
+    public void Scale(MonoBehaviour component, float rotationAngle) {
       UpdateMainCamera();
       foreach (Transform transform in component.GetComponentsInChildren<Transform>()) {
         ScaleTransform(transform);
@@ -26,7 +89,8 @@ namespace SwapDrop {
 
       Dictionary<String, Sprite> spriteMap = new Dictionary<String, Sprite>();
       Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/dpi" + TargetDpi());
-      Debug.Log("Device Orientation " + Input.deviceOrientation);
+      Debug.Log(">>>>>>>>>>>>>>>>>>>>>>>>\n\nDevice Orientation " + Input.deviceOrientation);
+      Debug.Log("Rotation angle: " + rotationAngle);
       Debug.Log("Screen width " + Screen.width);
       Debug.Log("Screen height " + Screen.height);
       Debug.Log("Width() " + Width());
@@ -51,7 +115,12 @@ namespace SwapDrop {
         spriteRenderer.sprite = spriteMap[spriteRenderer.sprite.name];
       }
 
-      Camera.main.transform.RotateAround(new Vector3(522, 888), Vector3.forward, -90);
+      Camera.main.transform.RotateAround(
+          new Vector3(
+              Camera.main.transform.position.x,
+              Camera.main.transform.position.y),
+          Vector3.forward,
+          rotationAngle);
     }
 
     void ScaleTransform(Transform transform) {
