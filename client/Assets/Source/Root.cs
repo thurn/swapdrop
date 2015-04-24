@@ -10,8 +10,21 @@ namespace SwapDrop {
       Screen.fullScreen = false;
       context = new Context(this);
 
-      Scaler scaler = new Scaler(0);
-      scaler.Scale(this);
+      // TODO: Get this from the device
+      int statusBarHeight = Application.platform == RuntimePlatform.IPhonePlayer ? 40 : 0;
+      _scaler = new Scaler(statusBarHeight);
+    }
+
+    private DeviceOrientation deviceOrientation = DeviceOrientation.Unknown;
+    private Scaler _scaler;
+
+    public void Update() {
+      if (Input.deviceOrientation != deviceOrientation
+          && Input.deviceOrientation != DeviceOrientation.FaceUp
+          && Input.deviceOrientation != DeviceOrientation.FaceDown) {
+        deviceOrientation = Input.deviceOrientation;
+        _scaler.Scale(this);
+      }
     }
   }
 }
