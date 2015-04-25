@@ -25,8 +25,8 @@ namespace SwapDrop {
       if (newOrientation != _deviceOrientation
           && newOrientation != DeviceOrientation.FaceUp
           && newOrientation != DeviceOrientation.FaceDown) {
-        _deviceOrientation = newOrientation;
         Scale(this, GetRotationAngle(newOrientation));
+        _deviceOrientation = newOrientation;
       }
     }
 
@@ -35,7 +35,7 @@ namespace SwapDrop {
       case DeviceOrientation.Portrait:
         switch (_deviceOrientation) {
         case DeviceOrientation.LandscapeLeft:
-          return -90;
+          return 90;
         case DeviceOrientation.LandscapeRight:
           return 90;
         case DeviceOrientation.PortraitUpsideDown:
@@ -46,7 +46,7 @@ namespace SwapDrop {
       case DeviceOrientation.LandscapeLeft:
         switch (_deviceOrientation) {
         case DeviceOrientation.Portrait:
-          return 90;
+          return -90;
         case DeviceOrientation.LandscapeRight:
           return 180;
         case DeviceOrientation.PortraitUpsideDown:
@@ -61,7 +61,7 @@ namespace SwapDrop {
         case DeviceOrientation.Portrait:
           return -90;
         case DeviceOrientation.PortraitUpsideDown:
-          return 90;
+          return -90;
         default:
           return 0;
         }
@@ -70,7 +70,7 @@ namespace SwapDrop {
         case DeviceOrientation.LandscapeLeft:
           return 90;
         case DeviceOrientation.LandscapeRight:
-          return -90;
+          return 90;
         case DeviceOrientation.Portrait:
           return 180;
         default:
