@@ -25,59 +25,9 @@ namespace SwapDrop {
       if (newOrientation != _deviceOrientation
           && newOrientation != DeviceOrientation.FaceUp
           && newOrientation != DeviceOrientation.FaceDown) {
-        Scale(this, GetRotationAngle(newOrientation));
+        // Always rotate counterclockwise for landscape
+        Scale(this, IsLandscape() ? -90 : 0);
         _deviceOrientation = newOrientation;
-      }
-    }
-
-    public float GetRotationAngle(DeviceOrientation newOrientation) {
-      switch (newOrientation) {
-      case DeviceOrientation.Portrait:
-        switch (_deviceOrientation) {
-        case DeviceOrientation.LandscapeLeft:
-          return 90;
-        case DeviceOrientation.LandscapeRight:
-          return 90;
-        case DeviceOrientation.PortraitUpsideDown:
-          return 180;
-        default:
-            return 0;
-        }
-      case DeviceOrientation.LandscapeLeft:
-        switch (_deviceOrientation) {
-        case DeviceOrientation.Portrait:
-          return -90;
-        case DeviceOrientation.LandscapeRight:
-          return 180;
-        case DeviceOrientation.PortraitUpsideDown:
-          return -90;
-        default:
-          return 0;
-        }
-      case DeviceOrientation.LandscapeRight:
-        switch (_deviceOrientation) {
-        case DeviceOrientation.LandscapeLeft:
-          return 180;
-        case DeviceOrientation.Portrait:
-          return -90;
-        case DeviceOrientation.PortraitUpsideDown:
-          return -90;
-        default:
-          return 0;
-        }
-      case DeviceOrientation.PortraitUpsideDown:
-        switch (_deviceOrientation) {
-        case DeviceOrientation.LandscapeLeft:
-          return 90;
-        case DeviceOrientation.LandscapeRight:
-          return 90;
-        case DeviceOrientation.Portrait:
-          return 180;
-        default:
-          return 0;
-        }
-      default:
-        return 0;
       }
     }
 
@@ -115,6 +65,7 @@ namespace SwapDrop {
         spriteRenderer.sprite = spriteMap[spriteRenderer.sprite.name];
       }
 
+      Camera.main.transform.rotation = Quaternion.identity;
       Camera.main.transform.RotateAround(
           new Vector3(
               Camera.main.transform.position.x,

@@ -100,7 +100,7 @@ PlayerSettings:
   uIRequiresPersistentWiFi: 0
   uIStatusBarHidden: 0
   uIExitOnSuspend: 0
-  uIStatusBarStyle: 1
+  uIStatusBarStyle: 2
   iPhoneSplashScreen: {fileID: 0}
   iPhoneHighResSplashScreen: {fileID: 0}
   iPhoneTallHighResSplashScreen: {fileID: 0}
