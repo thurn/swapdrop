@@ -7,14 +7,6 @@ using SwapDrop.Models;
 
 namespace SwapDrop.Views {
   /// <summary>
-  /// Possible colors of gem to spawn, one per player.
-  /// </summary>
-  public enum GemType {
-    BLUE,
-    RED
-  }
-
-  /// <summary>
   /// Grid view, renders the primary game board, providing the ability to spawn new gems onto the board and
   /// to detect taps on individual grid cells.
   /// </summary>
@@ -30,13 +22,8 @@ namespace SwapDrop.Views {
 
     private Renderer _renderer;
  
-    /// <summary>
-    /// Initialize this instance.
-    /// </summary>
-    public void Init() {
+    override protected void Awake() {
       _renderer = GetComponent<Renderer>();
-      print("screen width " + Screen.width);
-      print("screen height " + Screen.height);
     }
 
     /// <summary>
@@ -46,6 +33,7 @@ namespace SwapDrop.Views {
     /// <param name="type">The type of gem to spawn.</param>
     public void SpawnGemAtCell(GridCell cell, GemType type) {
       print("Spawn gem at cell: " + cell);
+      Gem.Instantiate(transform, type);
     }
  
     void Update() {

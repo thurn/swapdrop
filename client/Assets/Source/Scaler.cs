@@ -39,17 +39,6 @@ namespace SwapDrop {
 
       Dictionary<String, Sprite> spriteMap = new Dictionary<String, Sprite>();
       Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/dpi" + TargetDpi());
-      Debug.Log(">>>>>>>>>>>>>>>>>>>>>>>>\n\nDevice Orientation " + Input.deviceOrientation);
-      Debug.Log("Rotation angle: " + rotationAngle);
-      Debug.Log("Screen width " + Screen.width);
-      Debug.Log("Screen height " + Screen.height);
-      Debug.Log("Width() " + Width());
-      Debug.Log("Height() " + Height());
-      Debug.Log("Target width " + TargetGameWidth());
-      Debug.Log("Target height " + TargetGameHeight());
-      Debug.Log("Target DPI: " + TargetDpi());
-      Debug.Log("Scale factor: " + TargetGameWidth() / kWorldWidth);
-      Debug.Log("Camera size: " + Camera.main.orthographicSize);
       if (sprites.Length == 0) {
         Debug.Log("Unsupported DPI");
         return;
