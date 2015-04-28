@@ -7,21 +7,31 @@ namespace SwapDrop {
     public Vector3 Position { get; set; }
   }
 
-  public class Scaler : MonoBehaviour {
+  public class Scaler : MonoBehaviour, IScaler {
+    private static IScaler _instance;
+
+    public static IScaler GetInstance() {
+      return _instance;
+    }
+
     private const double kAspectRatio = 1.7;
     private const double kWorldWidth = 300.0;
     private const double kStandardDpi = 90.0;
 
     private int _statusBarHeight;
     private DeviceOrientation _deviceOrientation = DeviceOrientation.Unknown;
+    // Map from DPI -> Sprite Name -> Sprite
+    private Dictionary<string, Dictionary<string, Sprite>> _spriteCache;
     
-    public void Start() {
+    public void Awake() {
+      _instance = this;
       // TODO: Get this from the device
       _statusBarHeight = Application.platform == RuntimePlatform.IPhonePlayer ? 40 : 0;
+      _spriteCache = new Dictionary<string, Dictionary<string, Sprite>>();
     }
 
     public void Update() {
-      DeviceOrientation newOrientation = Input.deviceOrientation;
+      var newOrientation = Input.deviceOrientation;
       if (newOrientation != _deviceOrientation
           && newOrientation != DeviceOrientation.FaceUp
           && newOrientation != DeviceOrientation.FaceDown) {
@@ -31,44 +41,52 @@ namespace SwapDrop {
       }
     }
 
+    public void DoThis() {
+      Debug.Log("DoThis");
+    }
+
     public void Scale(MonoBehaviour component, float rotationAngle) {
-      UpdateMainCamera();
+      UpdateMainCamera(rotationAngle);
       foreach (Transform transform in component.GetComponentsInChildren<Transform>()) {
         ScaleTransform(transform);
       }
 
-      Dictionary<String, Sprite> spriteMap = new Dictionary<String, Sprite>();
-      Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/dpi" + TargetDpi());
+      foreach (SpriteRenderer spriteRenderer in component.GetComponentsInChildren<SpriteRenderer>()) {
+        ScaleSpriteRenderer(spriteRenderer, spriteRenderer.sprite.name);
+      }
+    }
+ 
+    void LoadSpritesForDpi(string dpi) {
+      var sprites = Resources.LoadAll<Sprite>("Sprites/dpi" + dpi);
       if (sprites.Length == 0) {
         Debug.Log("Unsupported DPI");
         return;
       }
+      var result = new Dictionary<string, Sprite>();
       foreach (Sprite sprite in sprites) {
-        spriteMap.Add(sprite.name, sprite);
+        result.Add(sprite.name, sprite);
       }
-
-      foreach (SpriteRenderer spriteRenderer in component.GetComponentsInChildren<SpriteRenderer>()) {
-        if (!spriteMap.ContainsKey(spriteRenderer.sprite.name)) {
-          throw new Exception("Sprite not found: " + spriteRenderer.sprite.name);
-        }
-        spriteRenderer.sprite = spriteMap[spriteRenderer.sprite.name];
-      }
-
-      Camera.main.transform.rotation = Quaternion.identity;
-      Camera.main.transform.RotateAround(
-          new Vector3(
-              Camera.main.transform.position.x,
-              Camera.main.transform.position.y),
-          Vector3.forward,
-          rotationAngle);
+      _spriteCache.Add(dpi, result);
     }
 
-    void ScaleTransform(Transform transform) {
-      double scaleFactor = TargetGameWidth() / kWorldWidth;
+    public void ScaleSpriteRenderer(SpriteRenderer spriteRenderer, string spriteName) {
+      var dpi = TargetDpi();
+      if (!_spriteCache.ContainsKey(dpi)) {
+        LoadSpritesForDpi(dpi);
+      }
+      var spriteMap = _spriteCache[dpi];
+      if (!spriteMap.ContainsKey(spriteName)) {
+        throw new Exception("Sprite not found: " + spriteName);
+      }
+      spriteRenderer.sprite = spriteMap[spriteName];
+    }
+
+    public void ScaleTransform(Transform transform) {
+      var scaleFactor = TargetGameWidth() / kWorldWidth;
    
       OriginalDimensions dimensions = transform.gameObject.GetComponent<OriginalDimensions>();
       if (dimensions == null) {
-        dimensions = transform.gameObject.AddComponent<OriginalDimensions>() as OriginalDimensions;
+        dimensions = transform.gameObject.AddComponent<OriginalDimensions>();
         dimensions.Position = transform.position;
       }
 
@@ -77,7 +95,7 @@ namespace SwapDrop {
                                        dimensions.Position.z);
     }
 
-    void UpdateMainCamera() {
+    void UpdateMainCamera(float rotationAngle) {
       if (IsLandscape()) {
         float cameraX = (float) ((TargetGameWidth() + _statusBarHeight) / 2.0f);
         Camera.main.transform.position = new Vector3(cameraX,
@@ -91,15 +109,23 @@ namespace SwapDrop {
                                                      -10.0f);
         Camera.main.orthographicSize = cameraY;
       }
+      
+      Camera.main.transform.rotation = Quaternion.identity;
+      Camera.main.transform.RotateAround(
+        new Vector3(
+        Camera.main.transform.position.x,
+        Camera.main.transform.position.y),
+        Vector3.forward,
+        rotationAngle);
     }
  
     double Width() {
-      int result = Math.Min(Screen.width, Screen.height);
+      var result = Math.Min(Screen.width, Screen.height);
       return IsLandscape() ? result - _statusBarHeight : result;
     }
 
     double Height() {
-      int result = Math.Max(Screen.width, Screen.height);
+      var result = Math.Max(Screen.width, Screen.height);
       return IsLandscape() ? result : result - _statusBarHeight;
     }
 

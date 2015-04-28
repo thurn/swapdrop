@@ -12,9 +12,9 @@ namespace SwapDrop {
   /// <summary>
   /// The Context is responsible for configuring injection bindings for the rest of the app.
   /// </summary>
-  public class Context : MVCSContext {
-    public Context(MonoBehaviour view) : base(view) {}
-    public Context(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags) {}
+  public class SwapDropContext : MVCSContext {
+    public SwapDropContext(MonoBehaviour view) : base(view) {
+    }
 
     protected override void addCoreComponents() {
       // Unbind the default EventCommandBinder and rebind the SignalCommandBinder

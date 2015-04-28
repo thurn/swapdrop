@@ -8,8 +8,8 @@ namespace SwapDrop {
   public class Root : ContextView {
     void Awake() {
       Screen.fullScreen = false;
-      context = new Context(this);
       gameObject.AddComponent<Scaler>();
+      context = new SwapDropContext(this);
     }
   }
 }
