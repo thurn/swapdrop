@@ -9,10 +9,10 @@ with the entities.
 
 Entente supports fields with the following primitive types:
 
-* int32
-* int64
-* float32
-* float64
+* int
+* long
+* float
+* double
 * boolean
 * string
 

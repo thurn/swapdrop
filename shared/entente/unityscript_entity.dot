@@ -27,7 +27,11 @@
 class {{= it.name}} {
   function {{= it.name}}(builder :{{= it.name}}Builder) {
     {{~ it.fields :field}}
-    this._{{= field.name}} = builder.{{= field.name}};
+    {{? field.repeated}}
+    this._{{= field.name}}List = builder.Get{{= field.name}}List();
+    {{??}}
+    this._{{= field.name}} = builder.Get{{= field.name}}();
+    {{?}}
     {{~}}
 
   }
@@ -36,6 +40,12 @@ class {{= it.name}} {
 
   public function ToBuilder() {
     return {{= it.name}}.NewBuilderFrom(this);
+  }
+
+  public function Equals(other) {
+    if (!other) return false;
+    var result = true;
+    return result;
   }
 
   public static function NewBuilder() {

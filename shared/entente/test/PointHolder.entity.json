@@ -9,10 +9,15 @@
       "desc": "The point to hold."
     },
     {
-      "name": "Name",
+      "name": "Color",
       "type": "string",
       "repeated": true,
-      "desc": "One of the names of this point."
+      "desc": "One of the colors of this point."
+    },
+    {
+      "name": "Count",
+      "type": "int",
+      "desc": "Quantity of points."
     }
   ]
 }
