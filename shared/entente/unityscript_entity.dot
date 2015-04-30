@@ -22,6 +22,65 @@
   {{~}}
 #}}
 
+{{##def.commonMethods:
+  public function Equals(other :{{= it.name}}) {
+    if (!other) return false;
+    {{~ it.fields :field}}
+    {{? field.repeated && field.primitive}}
+    if (!Entente.EqualArrays(this._{{= field.name}}List, other.Get{{= field.name}}List())) return false;
+    {{?? field.repeated}}
+    if (!Entente.EqualEntityArrays(this._{{= field.name}}List, other.Get{{= field.name}}List())) return false;
+    {{?? field.primitive}}
+    if (this._{{= field.name}} !== other.Get{{= field.name}}()) return false;
+    {{??}}
+    if (!this._{{= field.name}}.Equals(other.Get{{= field.name}}())) return false;
+    {{?}}
+    {{~}}
+    return true;
+  }
+
+  public function GetHashCode() {
+    var hash = 17;
+    {{~ it.fields :field}}
+    {{? field.repeated && field.primitive}}
+    hash = hash * 23 + Entente.ArrayHashCode(this._{{= field.name}}List);
+    {{?? field.repeated}}
+    hash = hash * 23 + Entente.EntityArrayHashCode(this._{{= field.name}}List);
+    {{?? field.primitive}}
+    hash = hash * 23 + Entente.HashCode(this._{{= field.name}});
+    {{??}}
+    hash = hash * 23 + this._{{= field.name}}.GetHashCode();
+    {{?}}
+    {{~}}
+    return hash;
+  }
+
+  public function ToStringWithIndent(indent :string) {
+    var result = indent + "{\n";
+    {{~ it.fields :field}}
+    {{? field.repeated && field.primitive}}
+    result += "{{= field.name}}List: " + Entente.ArrayToString(this._{{= field.name}}List, indent) + "\n" + indent;
+    {{?? field.repeated}}
+    result += "{{= field.name}}List: " + Entente.EntityArrayToString(this._{{= field.name}}List, indent) + "\n" + indent;
+    {{?? field.primitive}}
+    result += "{{= field.name}}: " + this._{{= field.name}} + "\n" + indent;
+    {{??}}
+    result += "{{= field.name}}: " + this._{{= field.name}}.ToStringWithIndent(indent + "  ") + "\n" + indent;
+    {{?}}
+    {{~}}
+    result += indent + "}\n";
+    return result;
+  }
+
+  public function ToString() {
+    return ToStringWithIndent("");
+  }
+
+  public function toString() {
+    return ToString();
+  }
+#}}
+
 #pragma strict
 
 class {{= it.name}} {
@@ -38,14 +97,10 @@ class {{= it.name}} {
 
   {{#def.vars}}
 
+  {{#def.commonMethods}}
+
   public function ToBuilder() {
     return {{= it.name}}.NewBuilderFrom(this);
-  }
-
-  public function Equals(other) {
-    if (!other) return false;
-    var result = true;
-    return result;
   }
 
   public static function NewBuilder() {
@@ -78,6 +133,8 @@ class {{= it.name}}Builder {
   }
 
   {{#def.vars}}
+
+  {{#def.commonMethods}}
 
   public function Build() {
     return new {{= it.name}}(this);
