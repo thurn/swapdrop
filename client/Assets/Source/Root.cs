@@ -10,6 +10,10 @@ namespace SwapDrop {
       Screen.fullScreen = false;
       gameObject.AddComponent<Scaler>();
       context = new SwapDropContext(this);
+      gameObject.AddComponent<SwapDrop.Views.RootView>();
+
+      Camera.main.transform.position = new Vector3(150, 255, -10);
+      Camera.main.orthographicSize = 255;
     }
   }
 }

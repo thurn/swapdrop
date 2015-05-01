@@ -48,7 +48,7 @@ namespace SwapDrop {
     public void Scale(MonoBehaviour component, float rotationAngle) {
       UpdateMainCamera(rotationAngle);
       foreach (Transform transform in component.GetComponentsInChildren<Transform>()) {
-        ScaleTransform(transform);
+        ScaleTransform(transform, transform.position);
       }
 
       foreach (SpriteRenderer spriteRenderer in component.GetComponentsInChildren<SpriteRenderer>()) {
@@ -81,8 +81,9 @@ namespace SwapDrop {
       spriteRenderer.sprite = spriteMap[spriteName];
     }
 
-    public void ScaleTransform(Transform transform) {
+    public void ScaleTransform(Transform transform, Vector3 position) {
       var scaleFactor = TargetGameWidth() / kWorldWidth;
+      transform.localPosition = position;
    
       OriginalDimensions dimensions = transform.gameObject.GetComponent<OriginalDimensions>();
       if (dimensions == null) {

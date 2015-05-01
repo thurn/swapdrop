@@ -11,6 +11,14 @@ namespace SwapDrop.Views {
   /// to detect taps on individual grid cells.
   /// </summary>
   public class Grid : View {
+    public static GameObject Instantiate(Transform parent) {
+      var gameObject = new GameObject("Grid");
+      gameObject.transform.parent = parent;
+      var grid = gameObject.AddComponent<Grid>();
+      grid.Init();
+      return gameObject;
+    }
+
     /// <summary>
     /// Invoked when a grid cell is tapped by the viewer.
     /// </summary>
@@ -20,10 +28,11 @@ namespace SwapDrop.Views {
     private const int kGridSize = 70;
     private const int kNumberOfSquares = 4;
 
-    private Renderer _renderer;
+    private SpriteRenderer _renderer;
  
-    override protected void Awake() {
-      _renderer = GetComponent<Renderer>();
+    void Init() {
+      _renderer = gameObject.AddComponent<SpriteRenderer>();
+      Scaler.GetInstance().ScaleSpriteRenderer(_renderer, "grid");
     }
 
     /// <summary>
@@ -33,7 +42,8 @@ namespace SwapDrop.Views {
     /// <param name="type">The type of gem to spawn.</param>
     public void SpawnGemAtCell(GridCell cell, GemType type) {
       print("Spawn gem at cell: " + cell);
-      Gem.Instantiate(transform, type);
+      var gem = Gem.Instantiate(transform, type);
+      Scaler.GetInstance().ScaleTransform(gem.transform, new Vector3(0, 0));
     }
  
     void Update() {

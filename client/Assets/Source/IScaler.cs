@@ -10,7 +10,8 @@ namespace SwapDrop {
     /// Modifies the position of the provided transform based on the current game scale.
     /// </summary>
     /// <param name="transform">The transform to scale.</param>
-    void ScaleTransform(Transform transform);
+    /// <param name="position"> The position of the transform.</param>
+    void ScaleTransform(Transform transform, Vector3 position);
 
     /// <summary>
     /// Changes the Sprite attached to a spriteRenderer based on the current game scale.
