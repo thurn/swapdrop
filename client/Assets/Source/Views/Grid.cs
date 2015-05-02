@@ -43,7 +43,9 @@ namespace SwapDrop.Views {
     public void SpawnGemAtCell(GridCell cell, GemType type) {
       print("Spawn gem at cell: " + cell);
       var gem = Gem.Instantiate(transform, type);
-      Scaler.GetInstance().ScaleTransform(gem.transform, new Vector3(0, 0));
+      var x = (cell.Column * kGridSize) + (cell.Column * (kGridMargin + 1));
+      var y = (cell.Row * kGridSize) + (cell.Row * (kGridMargin + 1));
+      Scaler.GetInstance().ScaleTransform(gem.transform, new Vector3(x, y));
     }
  
     void Update() {
