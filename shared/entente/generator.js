@@ -70,7 +70,7 @@ glob("**/*.entity.json", {}, function(error, files) {
       output = output.replace(/\s+[\n]/g, "\n");
       output += "\n";
 
-      fs.writeFile(fileName + ".js", output);
+      fs.writeFile(fileName + ".unity.js", output);
     }.bind(this, files[i]));
   }
 });
